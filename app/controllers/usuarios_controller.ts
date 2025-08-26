@@ -1,5 +1,5 @@
 import { HttpContext } from '@adonisjs/core/http'
-import UsuarioService from '../services/usuario_service.js'
+import UsuarioService from '../services/usuarios_service.js'
 
 export default class UsuariosController {
     public async getAll({response}: HttpContext){
