@@ -19,6 +19,9 @@ export default class Usuario extends BaseModel {
   @column()
   declare rol: string
 
+  @column()
+  declare puntos: number
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 
