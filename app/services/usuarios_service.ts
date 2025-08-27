@@ -10,12 +10,9 @@ export default class UsuarioService {
     return await Usuarios.findOrFail(id)
   }
 
-<<<<<<< HEAD
-=======
   public static async create(data: Partial<Usuarios>) {
     return await Usuarios.create(data)
   }
->>>>>>> 715d62c (socket)
 
   public static async update(id: number, data: Partial<Usuarios>) {
     const user = await Usuarios.findOrFail(id)

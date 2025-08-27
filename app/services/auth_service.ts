@@ -5,17 +5,7 @@ import jwt from 'jsonwebtoken'
 const SECRET = process.env.JWT_SECRET || 'sstrict'
 
 class AuthService {
-<<<<<<< HEAD
-  async register(
-    username: string,
-    email: string,
-    password: string,
-    rol: string
-   ) {
-
-=======
   async register(username: string, email: string, password: string, rol: string) {
->>>>>>> 715d62c (socket)
     const hash = await bcrypt.hash(password, 10)
 
     const user = await usuario.create({
