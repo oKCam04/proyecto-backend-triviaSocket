@@ -6,7 +6,6 @@ import type { HasMany } from '@adonisjs/lucid/types/relations'
 export default class Usuario extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
-  
   @column()
   declare username: string
 

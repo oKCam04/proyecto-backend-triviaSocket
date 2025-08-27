@@ -7,6 +7,7 @@
 |
 */
 
+<<<<<<< HEAD
 
 import router from '@adonisjs/core/services/router'
 import AuthJwt from '#middleware/jwt_auth'
@@ -17,8 +18,27 @@ import PartidasController from '#controllers/partidas_controller'
 import PreguntaController from '#controllers/preguntas_controller'
 import RespuestaJugadorController from '#controllers/respuestas_jugadors_controller'
 import CategoriaController from '#controllers/categorias_controller'
+=======
+const UsuariosController = () => import('#controllers/usuarios_controller')
+const PartidaController = () => import('#controllers/partida_controller')
+import router from '@adonisjs/core/services/router'
+import AuthJwt from '#middleware/jwt_auth'
+const CategoriaController = () => import('#controllers/categoria_controller')
+const AuthController = () => import('#controllers/auth_controller') // Asegúrate de que este import exista si no está ya
+>>>>>>> 715d62c (socket)
 
+router
+  .group(() => {
+    router.get('/', [UsuariosController, 'getAll'])
+    router.get('/:id', [UsuariosController, 'getById'])
+    router.post('/', [UsuariosController, 'create'])
+    router.put('/:id', [UsuariosController, 'update'])
+    router.delete('/:id', [UsuariosController, 'delete'])
+  })
+  .prefix('/users')
+  .use(new AuthJwt().handle)
 
+<<<<<<< HEAD
 //rutas de AUTH usuario públicas
 router.post('/auth/register', [AuhtController, 'register'])
 router.post('/auth/login', [AuhtController, 'login'])
@@ -95,3 +115,25 @@ router
   })
   .prefix('/respuestaJugador')
   .use(new AuthJwt().handle)
+=======
+router
+  .group(() => {
+    router.get('/', [CategoriaController, 'getAll'])
+    router.get('/:id', [CategoriaController, 'getById'])
+    router.post('/', [CategoriaController, 'create'])
+    router.put('/:id', [CategoriaController, 'update'])
+    router.delete('/:id', [CategoriaController, 'delete'])
+  })
+  .prefix('/categorias')
+  .use(new AuthJwt().handle)
+
+router
+  .group(() => {
+    router.post('/', [PartidaController, 'create'])
+  })
+  .prefix('/partidas')
+  .use(new AuthJwt().handle)
+
+router.post('/auth/register', [AuthController, 'register'])
+router.post('/auth/login', [AuthController, 'login'])
+>>>>>>> 715d62c (socket)

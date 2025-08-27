@@ -29,17 +29,27 @@ const IMPORTER = (filePath: string) => {
   return import(filePath)
 }
 
-new Ignitor(APP_ROOT, { importer: IMPORTER })
-  .tap((app) => {
-    app.booting(async () => {
-      await import('#start/env')
-    })
-    app.listen('SIGTERM', () => app.terminate())
-    app.listenIf(app.managedByPm2, 'SIGINT', () => app.terminate())
+const ignitor = new Ignitor(APP_ROOT, { importer: IMPORTER }).tap((app) => {
+  app.booting(async () => {
+    await import('#start/env')
   })
-  .httpServer()
-  .start()
-  .catch((error) => {
+  app.listen('SIGTERM', () => app.terminate())
+  app.listenIf(app.managedByPm2, 'SIGINT', () => app.terminate())
+})
+
+async function startServer() {
+  try {
+    const httpServer = ignitor.httpServer()
+    const socketModule = await import('#start/socket')
+    const SocketService = socketModule.default
+
+    SocketService.boot(httpServer)
+
+    await httpServer.start()
+  } catch (error) {
     process.exitCode = 1
     prettyPrintError(error)
-  })
+  }
+}
+
+startServer()

@@ -1,4 +1,3 @@
-
 import { BaseModel, column, belongsTo, hasMany } from '@adonisjs/lucid/orm'
 import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
 import Categoria from './categoria.js'
@@ -25,10 +24,8 @@ export default class Pregunta extends BaseModel {
   declare categorias: BelongsTo<typeof Categoria>
 
   @hasMany(() => Opcione, { foreignKey: 'pregunta_id' })
-    declare opciones: HasMany<typeof Opcione>
-  
+  declare opciones: HasMany<typeof Opcione>
+
   @hasMany(() => RespuestasJugador, { foreignKey: 'pregunta_id' })
   declare respuestaJugador: HasMany<typeof RespuestasJugador>
-
-
 }

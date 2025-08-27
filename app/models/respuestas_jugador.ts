@@ -1,4 +1,3 @@
-
 import { BaseModel, column, belongsTo } from '@adonisjs/lucid/orm'
 import Opcione from './opcione.js'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
@@ -12,7 +11,7 @@ export default class RespuestasJugador extends BaseModel {
 
   @column()
   declare usuario_id: number
-  
+
   @column()
   declare partida_id: number
 

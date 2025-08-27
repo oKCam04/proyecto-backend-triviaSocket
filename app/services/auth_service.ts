@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken'
 const SECRET = process.env.JWT_SECRET || 'sstrict'
 
 class AuthService {
+<<<<<<< HEAD
   async register(
     username: string,
     email: string,
@@ -12,18 +13,21 @@ class AuthService {
     rol: string
    ) {
 
+=======
+  async register(username: string, email: string, password: string, rol: string) {
+>>>>>>> 715d62c (socket)
     const hash = await bcrypt.hash(password, 10)
 
     const user = await usuario.create({
-      username, email, 
+      username,
+      email,
       password: hash,
-      rol
+      rol,
     })
-
 
     return {
       mensaje: 'Registro correcto',
-      user: await usuario.query().where('id', user.id)
+      user: await usuario.query().where('id', user.id),
     }
   }
 
@@ -33,7 +37,6 @@ class AuthService {
     }
 
     const user = await usuario.query().where('email', email).first()
-      
 
     if (!user) return { mensaje: 'El usuario no existe' }
 
@@ -44,7 +47,7 @@ class AuthService {
       {
         id: user.id,
         correoElectronico: user.email,
-        timestamp: Date.now()
+        timestamp: Date.now(),
       },
       SECRET,
       { expiresIn: '2h' }
@@ -52,8 +55,6 @@ class AuthService {
 
     return { mensaje: 'Login correcto', token, user }
   }
-
-  
 }
 
 export default AuthService
