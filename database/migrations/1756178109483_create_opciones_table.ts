@@ -6,10 +6,15 @@ export default class extends BaseSchema {
   async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.integer('preguntas_id').unsigned().references('id').inTable('preguntas').onDelete('CASCADE').notNullable()
+      table
+        .integer('preguntas_id')
+        .unsigned()
+        .references('id')
+        .inTable('preguntas')
+        .onDelete('CASCADE')
+        .notNullable()
       table.text('opcion').notNullable()
       table.boolean('es_correcto').notNullable()
-
     })
   }
 
