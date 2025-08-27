@@ -109,31 +109,42 @@ class SocketService {
       })
 
       // --- Evento: Enviar Respuesta (sendAnswer) ---
-      socket.on('sendAnswer', ({ roomId, userId, answerIndex }: { roomId: string; userId: string; answerIndex: number }) => {
-        const game = this.games.get(roomId)
-        if (!game || game.status !== 'playing') return
+      socket.on(
+        'sendAnswer',
+        ({
+          roomId,
+          userId,
+          answerIndex,
+        }: {
+          roomId: string
+          userId: string
+          answerIndex: number
+        }) => {
+          const game = this.games.get(roomId)
+          if (!game || game.status !== 'playing') return
 
-        const player = game.players.get(userId)
-        const question = game.questions[game.currentQuestionIndex]
+          const player = game.players.get(userId)
+          const question = game.questions[game.currentQuestionIndex]
 
-        if (player && question) {
-          const correct = question.correctAnswer === answerIndex
-          player.answers.push({ questionIndex: game.currentQuestionIndex, correct })
-          if (correct) {
-            player.score += 10
+          if (player && question) {
+            const correct = question.correctAnswer === answerIndex
+            player.answers.push({ questionIndex: game.currentQuestionIndex, correct })
+            if (correct) {
+              player.score += 10
+            }
+            // Notificar a todos la actualización de puntajes
+            this.io.to(roomId).emit('updatePlayers', Array.from(game.players.values()))
           }
-          // Notificar a todos la actualización de puntajes
-          this.io.to(roomId).emit('updatePlayers', Array.from(game.players.values()))
-        }
 
-        // Comprobar si todos han respondido (lógica simplificada)
-        if (game.currentQuestionIndex < game.questions.length - 1) {
-          game.currentQuestionIndex++
-          setTimeout(() => this.sendQuestion(roomId), 2000) // Pequeña pausa
-        } else {
-          this.endGame(roomId)
+          // Comprobar si todos han respondido (lógica simplificada)
+          if (game.currentQuestionIndex < game.questions.length - 1) {
+            game.currentQuestionIndex++
+            setTimeout(() => this.sendQuestion(roomId), 2000) // Pequeña pausa
+          } else {
+            this.endGame(roomId)
+          }
         }
-      })
+      )
 
       // --- Evento: Desconexión ---
       socket.on('disconnect', async () => {
@@ -176,7 +187,7 @@ class SocketService {
   }
 
   private static async handleDisconnect(socket: Socket) {
-    const { roomId, userId } = (socket as any)
+    const { roomId, userId } = socket as any
     if (!roomId || !userId) return
 
     const game = this.games.get(roomId)
