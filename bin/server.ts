@@ -1,6 +1,5 @@
 import 'reflect-metadata'
 import { Ignitor, prettyPrintError } from '@adonisjs/core'
-import { createServer } from 'node:http'
 
 const APP_ROOT = new URL('../', import.meta.url)
 
@@ -22,19 +21,9 @@ const ignitor = new Ignitor(APP_ROOT, { importer: IMPORTER }).tap((app) => {
 async function startServer() {
   try {
     const httpServer = ignitor.httpServer()
-    const socketModule = await import('#start/socket')
-    const SocketService = socketModule.default
 
-    // 1. Inicia el servicio de socket (pero no lo adjunta todavía)
-    SocketService.boot(httpServer)
-
-    // 2. Inicia el servidor HTTP y adjunta Socket.IO en el callback
-    await httpServer.start((handler) => {
-      const nodeServer = createServer(handler)
-      // Adjunta el servidor de Socket.IO al servidor de Node
-      SocketService.getIo().attach(nodeServer)
-      return nodeServer
-    })
+    // 2. Inicia el servidor HTTP
+    await httpServer.start()
     
   } catch (error) {
     process.exitCode = 1

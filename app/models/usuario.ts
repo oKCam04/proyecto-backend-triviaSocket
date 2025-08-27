@@ -2,6 +2,7 @@ import { DateTime } from 'luxon'
 import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
 import RespuestasJugador from './respuestas_jugador.js'
 import type { HasMany } from '@adonisjs/lucid/types/relations'
+import { DbAccessTokensProvider } from '@adonisjs/auth/access_tokens'
 
 export default class Usuario extends BaseModel {
   @column({ isPrimary: true })
@@ -29,4 +30,6 @@ export default class Usuario extends BaseModel {
 
   @hasMany(() => RespuestasJugador, { foreignKey: 'usuario_id' })
   declare respuestaJugador: HasMany<typeof RespuestasJugador>
+
+  static accessTokens = DbAccessTokensProvider.forModel(Usuario)
 }

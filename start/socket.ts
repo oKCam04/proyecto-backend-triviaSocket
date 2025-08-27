@@ -1,5 +1,5 @@
 import { Server, Socket } from 'socket.io'
-import { HttpServer } from '@adonisjs/core/http'
+import server from '@adonisjs/core/services/server'
 
 // --- Tipos de Datos para el Juego ---
 interface User {
@@ -49,8 +49,8 @@ class SocketService {
   private static io: Server
   private static games: Map<string, GameState> = new Map()
 
-  public static boot(server: HttpServer) {
-    this.io = new Server(server.getHttpServer()!, {
+  public static boot() {
+    this.io = new Server(server.getNodeServer()!, {
       cors: {
         origin: '*',
       },
