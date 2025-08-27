@@ -7,25 +7,15 @@
 |
 */
 
-<<<<<<< HEAD
-
 import router from '@adonisjs/core/services/router'
 import AuthJwt from '#middleware/jwt_auth'
-import AuhtController from '#controllers/auth_controller'
-import UsuariosController from '#controllers/usuarios_controller'
-import OpcionesController from '#controllers/opciones_controller'
-import PartidasController from '#controllers/partidas_controller'
-import PreguntaController from '#controllers/preguntas_controller'
-import RespuestaJugadorController from '#controllers/respuestas_jugadors_controller'
-import CategoriaController from '#controllers/categorias_controller'
-=======
+const AuhtController = () => import('#controllers/auth_controller')
 const UsuariosController = () => import('#controllers/usuarios_controller')
-const PartidaController = () => import('#controllers/partida_controller')
-import router from '@adonisjs/core/services/router'
-import AuthJwt from '#middleware/jwt_auth'
-const CategoriaController = () => import('#controllers/categoria_controller')
-const AuthController = () => import('#controllers/auth_controller') // Asegúrate de que este import exista si no está ya
->>>>>>> 715d62c (socket)
+const OpcionesController = () => import('#controllers/opciones_controller')
+const PartidasController = () => import('#controllers/partidas_controller')
+const PreguntaController = () => import('#controllers/preguntas_controller')
+const RespuestaJugadorController = () => import('#controllers/respuestas_jugadors_controller')
+const CategoriaController = () => import('#controllers/categorias_controller')
 
 router
   .group(() => {
@@ -38,7 +28,6 @@ router
   .prefix('/users')
   .use(new AuthJwt().handle)
 
-<<<<<<< HEAD
 //rutas de AUTH usuario públicas
 router.post('/auth/register', [AuhtController, 'register'])
 router.post('/auth/login', [AuhtController, 'login'])
@@ -48,21 +37,19 @@ router.post('/auth/login', [AuhtController, 'login'])
 //usuarios
 router
   .group(() => {
-    router.get('/',  [UsuariosController, 'getAll'])
+    router.get('/', [UsuariosController, 'getAll'])
     router.put('/:id', [UsuariosController, 'update'])
     router.delete('/:id', [UsuariosController, 'delete'])
   })
   .prefix('/user')
   .use(new AuthJwt().handle)
 
-  
 //categoria
 
 router
   .group(() => {
-    router.get('/',  [CategoriaController, 'getAll'])
+    router.get('/', [CategoriaController, 'getAll'])
     router.post('/', [CategoriaController, 'create'])
-    
   })
   .prefix('/categoria')
   .use(new AuthJwt().handle)
@@ -71,7 +58,7 @@ router
 
 router
   .group(() => {
-    router.get('/',  [OpcionesController, 'getAll'])
+    router.get('/', [OpcionesController, 'getAll'])
     router.post('/', [OpcionesController, 'create'])
     router.put('/:id', [OpcionesController, 'update'])
     router.delete('/:id', [OpcionesController, 'delete'])
@@ -82,7 +69,7 @@ router
 //partida
 router
   .group(() => {
-    router.get('/',  [PartidasController, 'getAll'])
+    router.get('/', [PartidasController, 'getAll'])
     router.post('/', [PartidasController, 'create'])
     router.put('/:id', [PartidasController, 'update'])
     router.delete('/:id', [PartidasController, 'delete'])
@@ -90,12 +77,11 @@ router
   .prefix('/partida')
   .use(new AuthJwt().handle)
 
-
 //pregunta
 
 router
   .group(() => {
-    router.get('/',  [PreguntaController, 'getAll'])
+    router.get('/', [PreguntaController, 'getAll'])
     router.post('/', [PreguntaController, 'create'])
     router.put('/:id', [PreguntaController, 'update'])
     router.delete('/:id', [PreguntaController, 'delete'])
@@ -103,37 +89,14 @@ router
   .prefix('/pregunta')
   .use(new AuthJwt().handle)
 
-
 //respuesta jugador
 
 router
   .group(() => {
-    router.get('/',  [RespuestaJugadorController, 'getAll'])
+    router.get('/', [RespuestaJugadorController, 'getAll'])
     router.post('/', [RespuestaJugadorController, 'create'])
     router.put('/:id', [RespuestaJugadorController, 'update'])
     router.delete('/:id', [RespuestaJugadorController, 'delete'])
   })
   .prefix('/respuestaJugador')
   .use(new AuthJwt().handle)
-=======
-router
-  .group(() => {
-    router.get('/', [CategoriaController, 'getAll'])
-    router.get('/:id', [CategoriaController, 'getById'])
-    router.post('/', [CategoriaController, 'create'])
-    router.put('/:id', [CategoriaController, 'update'])
-    router.delete('/:id', [CategoriaController, 'delete'])
-  })
-  .prefix('/categorias')
-  .use(new AuthJwt().handle)
-
-router
-  .group(() => {
-    router.post('/', [PartidaController, 'create'])
-  })
-  .prefix('/partidas')
-  .use(new AuthJwt().handle)
-
-router.post('/auth/register', [AuthController, 'register'])
-router.post('/auth/login', [AuthController, 'login'])
->>>>>>> 715d62c (socket)

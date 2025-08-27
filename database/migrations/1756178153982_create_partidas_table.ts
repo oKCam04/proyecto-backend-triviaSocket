@@ -6,8 +6,8 @@ export default class extends BaseSchema {
   async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.string('codigo').notNullable()
-      table.enu('status', ['Esperando', 'Iniciado', 'Finalizado']).notNullable()
+      table.string('codigo')
+      table.enu('status',['Esperando','Iniciado','Finalizado'])
     })
   }
 

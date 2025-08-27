@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { HttpContext } from '@adonisjs/core/http'
 import RespuestaJugadorService from '../services/respuesta_jugador_service.js'
 
