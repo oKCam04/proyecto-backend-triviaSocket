@@ -7,7 +7,7 @@
 |
 */
 
-import CategoriaController from '#controllers/categorias_controller'
+
 import router from '@adonisjs/core/services/router'
 import AuthJwt from '#middleware/jwt_auth'
 import AuhtController from '#controllers/auth_controller'
@@ -16,6 +16,7 @@ import OpcionesController from '#controllers/opciones_controller'
 import PartidasController from '#controllers/partidas_controller'
 import PreguntaController from '#controllers/preguntas_controller'
 import RespuestaJugadorController from '#controllers/respuestas_jugadors_controller'
+import CategoriaController from '#controllers/categorias_controller'
 
 
 //rutas de AUTH usuario públicas
@@ -28,7 +29,6 @@ router.post('/auth/login', [AuhtController, 'login'])
 router
   .group(() => {
     router.get('/',  [UsuariosController, 'getAll'])
-    router.post('/', [UsuariosController, 'create'])
     router.put('/:id', [UsuariosController, 'update'])
     router.delete('/:id', [UsuariosController, 'delete'])
   })
@@ -42,8 +42,7 @@ router
   .group(() => {
     router.get('/',  [CategoriaController, 'getAll'])
     router.post('/', [CategoriaController, 'create'])
-    router.put('/:id', [CategoriaController, 'update'])
-    router.delete('/:id', [CategoriaController, 'delete'])
+    
   })
   .prefix('/categoria')
   .use(new AuthJwt().handle)

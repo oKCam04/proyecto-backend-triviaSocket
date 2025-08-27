@@ -10,9 +10,6 @@ export default class UsuarioService {
     return await Usuarios.findOrFail(id)
   }
 
-  public static async create(data: Partial<Usuarios>){
-    return await Usuarios.create(data)
-  }
 
   public static async update(id: number, data: Partial <Usuarios>){
     const user= await Usuarios.findOrFail(id)

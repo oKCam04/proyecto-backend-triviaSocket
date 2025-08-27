@@ -10,8 +10,7 @@ class AuthService {
     email: string,
     password: string,
     rol: string
-   
-  ) {
+   ) {
 
     const hash = await bcrypt.hash(password, 10)
 

@@ -15,7 +15,6 @@ export default class AuthJwt{
         } else {
             try {
                 const jwtcoded = Jwt.verify(token, SECRET)
-                request.updateBody({authUsuario: jwtcoded})
                 await next()
             } catch (error) {
                 return response.unauthorized({message:"Token invalido"})

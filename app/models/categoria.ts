@@ -5,6 +5,7 @@ import type { HasMany } from '@adonisjs/lucid/types/relations'
 export default class Categoria extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
+  
   @column()
   declare name: string
 

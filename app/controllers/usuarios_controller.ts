@@ -12,12 +12,6 @@ export default class UsuariosController {
         return response.ok(user)
     }
 
-    public async create({response,request}:HttpContext){
-        const data= request.only(['username','email','password','rol'])
-        const user= await UsuarioService.create(data)
-        return response.created(user)
-    }
-
     public async update({params, request, response}: HttpContext){
         const data= request.only(['username','email','password','rol'])
         const user= await UsuarioService.update(params.id, data)

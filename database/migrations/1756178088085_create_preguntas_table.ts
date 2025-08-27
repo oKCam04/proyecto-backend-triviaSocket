@@ -6,10 +6,10 @@ export default class extends BaseSchema {
   async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.integer('categoria_id').unsigned().references('id').inTable('categorias').onDelete('CASCADE')
-      table.text('pregunta')
-      table.enu('dificultad',['fácil','medio','dificil'])
-      table.integer('tiempo_pregunta')
+      table.integer('categoria_id').unsigned().references('id').inTable('categorias').onDelete('CASCADE').notNullable()
+      table.text('pregunta').notNullable()
+      table.enu('dificultad',['fácil','medio','dificil']).notNullable()
+      table.integer('tiempo_pregunta').notNullable()
 
       
     })
