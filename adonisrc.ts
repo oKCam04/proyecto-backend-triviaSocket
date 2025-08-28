@@ -23,13 +23,13 @@ export default defineConfig({
     () => import('@adonisjs/lucid/database_provider'),
     () => import('@adonisjs/auth/auth_provider'),
 
-    () => import('./providers/socketProvider.js'),
+    () => import('./providers/socketprovider.js'),
   ],
 
   preloads: [
     () => import('#start/routes'),
     () => import('#start/kernel'),
-    // ❌ quita aquí cualquier preload de socket
+   
   ],
 
   tests: {
